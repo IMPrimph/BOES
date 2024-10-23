@@ -1,0 +1,61 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer {
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+}
+
+.btn-patreon {
+  background-color: #ff424d; /* Patreon color */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-patreon:hover {
+  background-color: #e0353c; /* Darker shade on hover */
+}
+
+.results {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.calculator-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
