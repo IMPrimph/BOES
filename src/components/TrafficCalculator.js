@@ -11,8 +11,8 @@ const TrafficCalculator = () => {
     'per min': 60,
     'per hour': 3600,
     'per day': 86400,
-    'per month': 2592000, // Approximate
-    'per year': 31536000,  // Approximate
+    'per month': 2592000,
+    'per year': 31536000,
   };
 
   const formatNumber = (num) => {
@@ -21,16 +21,16 @@ const TrafficCalculator = () => {
 
     if (num < 1000) {
       formattedNum = num.toFixed(2);
-      unit = 'req'; // Requests
+      unit = 'req';
     } else if (num < 1000000) {
       formattedNum = (num / 1000).toFixed(2);
-      unit = 'K req'; // Kilo requests
+      unit = 'K req';
     } else if (num < 1000000000) {
       formattedNum = (num / 1000000).toFixed(2);
-      unit = 'M req'; // Mega requests
+      unit = 'M req';
     } else {
       formattedNum = (num / 1000000000).toFixed(2);
-      unit = 'B req'; // Billion requests
+      unit = 'B req';
     }
 
     return `${formattedNum} ${unit}`;
@@ -38,13 +38,13 @@ const TrafficCalculator = () => {
 
   const validateInputs = () => {
     const newErrors = {};
-    
+
     if (parseFloat(numRequests) <= 0 || isNaN(numRequests)) {
       newErrors.numRequests = 'Number of requests must be a positive number.';
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Returns true if there are no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const calculateTraffic = () => {
@@ -56,8 +56,8 @@ const TrafficCalculator = () => {
       perMin: formatNumber(totalRequests * 60),
       perHour: formatNumber(totalRequests * 3600),
       perDay: formatNumber(totalRequests * 86400),
-      perMonth: formatNumber(totalRequests * 2592000), // Approximate
-      perYear: formatNumber(totalRequests * 31536000),  // Approximate
+      perMonth: formatNumber(totalRequests * 2592000),
+      perYear: formatNumber(totalRequests * 31536000),
     };
   };
 
@@ -66,7 +66,7 @@ const TrafficCalculator = () => {
     if (validateInputs()) {
       const results = calculateTraffic();
       setResults(results);
-      setErrors({}); // Clear errors if input is valid
+      setErrors({});
     }
   };
 

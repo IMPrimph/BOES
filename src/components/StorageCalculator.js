@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure you have Bootstrap for styling
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const StorageCalculator = () => {
   const [storagePerItem, setStoragePerItem] = useState('');
   const [unit, setUnit] = useState('MB');
   const [itemsPerDay, setItemsPerDay] = useState('');
-  const [daysPerYear, setDaysPerYear] = useState(365); // Default to 365 if not provided
+  const [daysPerYear, setDaysPerYear] = useState(365);
   const [yearsToStore, setYearsToStore] = useState('');
   const [results, setResults] = useState(null);
   const [errors, setErrors] = useState({});
@@ -56,15 +56,14 @@ const StorageCalculator = () => {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Returns true if there are no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const calculateStorage = () => {
     const storagePerItemInBytes = parseFloat(storagePerItem) * unitsInBytes[unit];
     const dailyStorage = storagePerItemInBytes * parseFloat(itemsPerDay);
-    
-    // Use provided days or default to 365
-    const days = parseFloat(daysPerYear) || 365; 
+
+    const days = parseFloat(daysPerYear) || 365;
     let totalStorage = dailyStorage * days;
 
     if (yearsToStore) {
@@ -83,7 +82,7 @@ const StorageCalculator = () => {
     if (validateInputs()) {
       const results = calculateStorage();
       setResults(results);
-      setErrors({}); // Clear errors if input is valid
+      setErrors({});
     }
   };
 

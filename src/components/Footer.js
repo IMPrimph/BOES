@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <p>Thank you for using our tool!</p>
       <a
-        href="https://www.patreon.com/YOUR_PATREON_URL" // Replace with your Patreon URL
+        href="https://buymeacoffee.com/primph"
         className="btn btn-patreon"
         target="_blank"
         rel="noopener noreferrer"
