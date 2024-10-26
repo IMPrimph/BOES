@@ -18,6 +18,11 @@ const StorageCalculator = () => {
   };
 
   const formatNumber = (num) => {
+    if (typeof num!== 'number' || isNaN(num)) {
+      console.error('Invalid input for formatNumber:', num);
+      return 'N/A';
+    }
+
     let formattedNum;
     let unit;
 
@@ -48,11 +53,11 @@ const StorageCalculator = () => {
     if (isNaN(itemsDay) || itemsDay < 0) {
       newErrors.itemsPerDay = 'Items per day must be a positive number.';
     }
-    if (daysYear < 0) {
-      newErrors.daysPerYear = 'Days per year must be a positive number.';
+    if (isNaN(daysYear) || daysYear <= 0 || daysYear % 1!== 0) {
+      newErrors.daysPerYear = 'Days per year must be a positive integer.';
     }
-    if (yearsToStore && (isNaN(yearsStore) || yearsStore < 0)) {
-      newErrors.yearsToStore = 'Years to store must be a positive number.';
+    if (yearsToStore!== '' && (isNaN(yearsStore) || yearsStore < 0)) {
+      newErrors.yearsToStore = 'Years to store must be a positive number or empty.';
     }
 
     setErrors(newErrors);
@@ -66,7 +71,7 @@ const StorageCalculator = () => {
     const days = parseFloat(daysPerYear) || 365;
     let totalStorage = dailyStorage * days;
 
-    if (yearsToStore) {
+    if (yearsToStore!== '') {
       totalStorage *= parseFloat(yearsToStore);
     }
 
@@ -91,19 +96,21 @@ const StorageCalculator = () => {
       <h2 className="text-center mb-4">Storage Calculator</h2>
       <form onSubmit={handleSubmit} className="bg-light p-4 rounded shadow">
         <div className="form-group">
-          <label htmlFor="storagePerItem">Storage per Item:</label>
+          <label htmlFor="storagePerItem" className="sr-only">Storage per Item:</label>
           <input
             type="number"
+            inputMode="numeric"
             id="storagePerItem"
-            className={`form-control ${errors.storagePerItem ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.storagePerItem? 'is-invalid' : ''}`}
             value={storagePerItem}
             onChange={(e) => setStoragePerItem(e.target.value)}
             required
           />
           {errors.storagePerItem && <div className="invalid-feedback">{errors.storagePerItem}</div>}
         </div>
+
         <div className="form-group">
-          <label htmlFor="unit">Unit:</label>
+          <label htmlFor="unit" className="sr-only">Unit:</label>
           <select
             id="unit"
             className="form-control"
@@ -115,42 +122,50 @@ const StorageCalculator = () => {
             <option value="GB">GB</option>
             <option value="TB">TB</option>
           </select>
+          {errors.unit && <div className="invalid-feedback">{errors.unit}</div>}
         </div>
+
         <div className="form-group">
-          <label htmlFor="itemsPerDay">Items per Day:</label>
+          <label htmlFor="itemsPerDay" className="sr-only">Items per Day:</label>
           <input
             type="number"
+            inputMode="numeric"
             id="itemsPerDay"
-            className={`form-control ${errors.itemsPerDay ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.itemsPerDay? 'is-invalid' : ''}`}
             value={itemsPerDay}
             onChange={(e) => setItemsPerDay(e.target.value)}
             required
           />
           {errors.itemsPerDay && <div className="invalid-feedback">{errors.itemsPerDay}</div>}
         </div>
+
         <div className="form-group">
-          <label htmlFor="daysPerYear">Days per Year:</label>
+          <label htmlFor="daysPerYear" className="sr-only">Days per Year:</label>
           <input
             type="number"
+            inputMode="numeric"
             id="daysPerYear"
-            className={`form-control ${errors.daysPerYear ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.daysPerYear? 'is-invalid' : ''}`}
             value={daysPerYear}
             onChange={(e) => setDaysPerYear(e.target.value)}
           />
           {errors.daysPerYear && <div className="invalid-feedback">{errors.daysPerYear}</div>}
         </div>
+
         <div className="form-group">
-          <label htmlFor="yearsToStore">Years to Store:</label>
+          <label htmlFor="yearsToStore" className="sr-only">Years to Store (Optional):</label>
           <input
             type="number"
+            inputMode="numeric"
             id="yearsToStore"
-            className={`form-control ${errors.yearsToStore ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.yearsToStore? 'is-invalid' : ''}`}
             value={yearsToStore}
             onChange={(e) => setYearsToStore(e.target.value)}
             placeholder="Optional"
           />
           {errors.yearsToStore && <div className="invalid-feedback">{errors.yearsToStore}</div>}
         </div>
+
         <button type="submit" className="btn btn-primary btn-block">Calculate</button>
       </form>
       {results && (
